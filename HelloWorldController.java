@@ -1,21 +1,28 @@
-package MVCexample.Assignments;
+package com.in28minutes.rest.webservices.restfulwebservices.helloworld;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class HelloWorldController {
 
-  @RequestMapping(value = "/helloWorld", method = RequestMethod.GET)
-  public String sayHello1() {
+	@GetMapping(path="/hello-world")
+	public String helloWorld() {
+		return"Hello World";
+	}
+		@GetMapping(path="/hello-world-bean")
+		public HelloWorldBean helloWorldBean() {
+			return new HelloWorldBean("Hello World");
+	}
 
-    return "helloWorld";
-  }
+		//path Parameters
+		// /users/{id}/todos/{id} =>/users/2/todos/200
+		// /hello-world/path-variable/{name}
+		// /hello-world/path-variable/Vanga
 
-  @RequestMapping(value = "/index", method = RequestMethod.POST)
-  public String sayHello3() {
-
-    return "index";
-  }
+		@GetMapping(path="/hello-world/path-variable/{name}")
+		public HelloWorldBean helloWorldPathVariable(@PathVariable String name) {
+			return new HelloWorldBean(String.format("Hello World,%s",name));
+	}
 }
